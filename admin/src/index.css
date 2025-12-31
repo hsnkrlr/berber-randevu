@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "tailwindcss";
+
+:root {
+  --barber-gold: #FFD700;
+  --barber-dark: #22223b;
+}
+
+.bg-barber-dark { background-color: var(--barber-dark); }
+.text-barber-gold { color: var(--barber-gold); }
+.bg-barber-gold { background-color: var(--barber-gold); }
+.text-barber-dark { color: var(--barber-dark); }
+
+body {
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  background: #f8fafc;
+}

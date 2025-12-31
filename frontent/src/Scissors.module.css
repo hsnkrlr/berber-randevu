@@ -1,0 +1,144 @@
+:root {
+    --body-col: #ffffff;
+    --handles-col: #710500;
+    --joint-col: #ebb5b2;
+    --blade-col: #bd0900;
+  
+    --hw: 2em;
+    --bw: 4em;
+    --div: 3;
+    --angle: 10deg;
+    --f-angle: 80deg;
+  
+    --hh: calc(var(--hw) / 2);
+    --ht: calc(var(--hh) / var(--div));
+    --bh: var(--ht);
+    --dj: calc(var(--bh) * 0.7);
+    --lp: calc(var(--hw) + 2 * var(--bh) + var(--dj));
+    --lpp: calc(var(--lp) * 100% / (var(--bw) + var(--hw)));
+    --lpj: calc(var(--lpp) - (var(--dj) * 100% / (var(--bw) + var(--hw)) / 2));
+  }
+  
+  body {
+    background: var(--body-col);
+  }
+  
+  .scissors {
+    position: relative;
+    width: calc(var(--bw) + var(--hw));
+    height: calc(2 * var(--hh) - var(--bh));
+    margin: calc(var(--bw) / 2) auto;
+    rotate: -35deg;
+  }
+  
+  .half {
+    width: calc(var(--bw) + var(--hw));
+    height: var(--hh);
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    transform-origin: var(--lpp) 100% 0;
+    transform: rotate(calc(var(--angle) / 2));
+    animation: rot-up 1s ease-out infinite;
+  }
+  
+  .half:nth-child(even) {
+    top: calc(var(--hh) - var(--bh));
+    transform-origin: var(--lpp) 0% 0;
+    transform: rotate(calc(-1 * var(--angle) / 2));
+    animation: rot-down 1s ease-out infinite;
+  }
+  
+  .half:nth-child(even) .blade {
+    top: 0;
+    border-radius: 0 var(--bh) 0 0;
+  }
+  
+  .half:nth-child(even) .blade::after {
+    top: var(--bh);
+    border-style: solid;
+    border-width: var(--bh) calc(var(--bh) * 2) 0 calc(var(--bh) * 2);
+    border-color: var(--blade-col) transparent transparent transparent;
+  }
+  
+  @keyframes rot-up {
+    0% {
+      transform: rotate(calc(var(--angle) / 2));
+    }
+    50% {
+      transform: rotate(calc(var(--f-angle) / 2));
+    }
+    100% {
+      transform: rotate(calc(var(--angle) / 2));
+    }
+  }
+  
+  @keyframes rot-down {
+    0% {
+      transform: rotate(calc(-1 * var(--angle) / 2));
+    }
+    50% {
+      transform: rotate(calc(-1 * var(--f-angle) / 2));
+    }
+    100% {
+      transform: rotate(calc(-1 * var(--angle) / 2));
+    }
+  }
+  
+  .joint {
+    width: var(--dj);
+    height: var(--dj);
+    border-radius: 50%;
+    background: var(--joint-col);
+    position: absolute;
+    top: calc(var(--hh) - var(--bh) / 2 - var(--dj) / 2);
+    left: 47%;
+    transform: translateX(-50%);
+  }
+  
+  .handle {
+    width: var(--hw);
+    height: var(--hh);
+    border-radius: calc(var(--hh) / 2);
+    border: var(--ht) solid var(--handles-col);
+    background: var(--body-col);
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+  }
+  
+  .blade {
+    width: var(--bw);
+    height: var(--bh);
+    position: absolute;
+    top: calc(var(--hh) - var(--bh));
+    left: var(--hw);
+    background: var(--blade-col);
+    border-radius: 0 0 var(--bh) 0;
+  }
+  
+  .blade::before {
+    content: "";
+    width: calc(var(--hw) / 2);
+    height: var(--bh);
+    background: var(--blade-col);
+    position: absolute;
+    top: 0;
+    left: calc(-1 * var(--hw) / 2);
+  }
+  
+  .blade::after {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 calc(var(--bh) * 2) var(--bh) calc(var(--bh) * 2);
+    border-color: transparent transparent var(--blade-col) transparent;
+    position: absolute;
+    top: calc(-1 * var(--bh));
+    left: calc(-1 * var(--bh) * 2);
+  }
+  
